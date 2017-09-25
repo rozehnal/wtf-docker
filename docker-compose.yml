@@ -8,4 +8,23 @@ services:
     volumes:
       - ./public:/var/www/html
     environment:
-      - API_TOKEN=xxxx
+      API_TOKEN: xxxx
+      DB_HOST: db:3306
+      MEMCACHE_HOST: memcached
+      MEMCACHE_PORT: 11211
+    depends_on:
+      - db
+      - memcached
+  db:
+    build: ./mysql-server
+    volumes:
+      - ./mysql-server/data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: test
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+  memcached:
+    image: memcached
+    restart: always

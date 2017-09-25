@@ -6,3 +6,4 @@
         
 
     docker-compose up
+	docker exec -it wtfdocker_web_1 bash
